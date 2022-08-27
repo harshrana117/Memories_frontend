@@ -4,6 +4,8 @@ import memories from './images/memories.png'
 import Posts from './components/Posts/Posts';
 import { Form } from './components/Form/Form';
 import styled from '@emotion/styled';
+import { useDispatch } from 'react-redux';
+import { getPosts } from './actions/posts';
 
 const ImgStyles = {
   marginLeft: '15px',
@@ -24,6 +26,12 @@ const HeadingStyles = {
 }
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getPosts())
+  },[dispatch])
 
   return (
       <Container maxWidth='lg'>
