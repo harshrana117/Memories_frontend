@@ -27,12 +27,12 @@ const HeadingStyles = {
 
 
 const App = () => {
-
+  const [currentId, setCurrentId] = React.useState(null)
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getPosts())
-  },[dispatch])
+  },[currentId, dispatch])
 
   return (
       <Container maxWidth='lg' style={{}}>
@@ -45,10 +45,10 @@ const App = () => {
           <Container>
             <Grid container justify="space-between" align-items="stretch" spacing={3}>
               <Grid item xs={12} sm={7}>
-                <Posts />
+                <Posts setCurrentId={setCurrentId} />
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Form/>
+                <Form currentId={currentId} setCurrentId={setCurrentId} />
               </Grid>
             </Grid>
           </Container>

@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { TextField, Button, Typography, Paper} from "@mui/material";
 import React from "react";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, updatePost } from "../../actions/posts";
 
 const fileInput = {
   width: "97%",
@@ -25,8 +25,10 @@ const StyledTextField = styled(TextField)`
 margin: 10px;
 `
 
-export const Form = () => {
+export const Form = ({currentId, setCurrentId}) => {
   const dispatch = useDispatch();
+
+  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
 
   const [postData, setPostData] = React.useState({
     creator: "",
@@ -36,17 +38,40 @@ export const Form = () => {
     tags: ''
   });
 
+  React.useEffect(() => {
+    if(post){
+      setPostData(post)
+    }
+  }, [post])
+
+  const Clear = () => {
+    setCurrentId(null)
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      selectedFile: "",
+      tags: ''
+    })
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(createPost(postData))
+    if(currentId){
+      dispatch(updatePost(currentId, postData))
+    } else {
+      dispatch(createPost(postData))
+    }
+    Clear()
+    
   };
 
-  const Clear = () => {};
+
   return (
     <Paper>
       <form autoComplete="off" noValidate onSubmit={handleSubmit} style={{...FormStyles}}>
-      <Typography variant="h6">Creating a memory</Typography>
+      <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a memory</Typography>
       <StyledTextField
         name="creator"
         variant="outlined"
