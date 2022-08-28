@@ -8,7 +8,7 @@ const ContainerStyles = {
     alignItems: 'center',
 }
 
-const Posts = ({setCurrentId}) => {
+const Posts = () => {
   const posts = useSelector((state) => state.posts)
 
   console.log(posts)
@@ -17,7 +17,7 @@ const Posts = ({setCurrentId}) => {
       <Grid style={{...ContainerStyles}} container alignItems="stretch" spacing={3}>
         {posts.map((post) => (
           <Grid key={post._id} item xs={12} sm={6} md={6}>
-            <Post post={post} setCurrentId={setCurrentId} />
+            <Post post={post} />
           </Grid>
         ))}
       </Grid>

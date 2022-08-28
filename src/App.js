@@ -25,6 +25,7 @@ const HeadingStyles = {
   color: 'rgba(0,183,255, 1)',
 }
 
+
 const App = () => {
 
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const App = () => {
   },[dispatch])
 
   return (
-      <Container maxWidth='lg'>
+      <Container maxWidth='lg' style={{}}>
         <AppBar position='static' color='inherit' style={{...AppBarStyles}}>
           <Typography variant='h2' align='center' style={{...HeadingStyles}}>Memories</Typography>
           <img style={{...ImgStyles}} src={memories} alt='memories.png' /> ;
