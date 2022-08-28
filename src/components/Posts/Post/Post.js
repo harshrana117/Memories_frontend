@@ -71,6 +71,7 @@ const fullHeightCard = {
 };
 
 const Post = ({ post, setCurrentId }) => {
+  
   return (
     <Card style={{ ...CardStyles }}>
       <CardMedia
